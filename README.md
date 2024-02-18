@@ -103,7 +103,7 @@ To set up and run the project, follow these steps:
 3. Clone the project repository from GitHub:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/bakharia/ofac-demo.git
    ```
 4. Navigate to project directory:
 
