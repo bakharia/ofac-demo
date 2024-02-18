@@ -107,9 +107,6 @@ def display_data(root: tk.Tk):
                 records_count = len(df[df['Country'] == selected])
                 records_label.config(text=f"Records for {selected}: {records_count}")
 
-        # Bind the function to the <<ComboboxSelected>> event
-        country_dropdown.bind("<<ComboboxSelected>>", update_record_count)
-
         main_frame = tk.Frame(scrollable_frame)
         main_frame.grid(row=4, column=0, padx=10, pady=10, sticky="nsew")
         main_frame.grid_rowconfigure(0, weight=1)
