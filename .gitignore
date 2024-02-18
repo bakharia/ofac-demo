@@ -1,0 +1,40 @@
+# IDE/Editor Files
+.vscode/
+.idea/
+.vs/
+*.iml
+
+# Dependency Directories
+venv/
+env/
+poetry.lock
+.venv/
+node_modules/
+
+# Compiled Code
+*.pyc
+__pycache__/
+
+# Temporary Files
+*.log
+*.tmp
+
+# Sensitive Information
+.env
+config.ini
+secrets.py
+
+# Generated Files/Directories
+dist/
+build/
+*.egg-info/
+*.egg/
+*.egg-info/
+*.log
+*.out
+
+# User-Specific Files/Directories
+.DS_Store
+.history/
+.bash_history
+.bashrc
