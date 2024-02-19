@@ -102,7 +102,7 @@ def display_data(root: tk.Tk):
         # Function to update record count label
         def update_record_count(event):
             selected = selected_country.get()
-            print(selected)
+            # print(selected)
             if selected:
                 records_count = len(df[df['Country'] == selected])
                 records_label.config(text=f"Records for {selected}: {records_count}")
@@ -157,12 +157,8 @@ def display_data(root: tk.Tk):
         addresses_frame.grid(row=1, column=1, padx=10, pady=10, sticky="nsew")
         addresses_frame.grid_rowconfigure(0, weight=1)
         addresses_frame.grid_columnconfigure(0, weight=1)
-        addresses_table = ttk.Treeview(addresses_frame, columns=['Address', 'City', 'State/Province', 'Postal Code', 'Country'], show='headings')
+        addresses_table = ttk.Treeview(addresses_frame, columns=['Address'], show='headings')
         addresses_table.heading('Address', text='Address')
-        addresses_table.heading('City', text='City')
-        addresses_table.heading('State/Province', text='State/Province')
-        addresses_table.heading('Postal Code', text='Postal Code')
-        addresses_table.heading('Country', text='Country')
         addresses_table.grid(row=0, column=0, sticky="nsew")
         addresses_scroll = ttk.Scrollbar(addresses_frame, orient="vertical", command=addresses_table.yview)
         addresses_scroll.grid(row=0, column=1, sticky="ns")
@@ -172,9 +168,8 @@ def display_data(root: tk.Tk):
         for col in ['Name', 'Link', 'Type', 'Program(s)', 'List', 'Score']:
             main_table.column(col, width=100, stretch=True)
         for col in ['Type', 'Alias']:
-            aliases_table.column(col, width=100, stretch=True)
-        for col in ['Address', 'City', 'State/Province', 'Postal Code', 'Country']:
-            addresses_table.column(col, width=100, stretch=True)
+            aliases_table.column(col, width=120, stretch=True)
+        addresses_table.column('Address', width=450, stretch=True)  # Adjust width for 'Address' column
 
         def display_selected_country_data(event):
             selected = selected_country.get()
@@ -197,23 +192,14 @@ def display_data(root: tk.Tk):
                         aliases_table.delete(*aliases_table.get_children())
                         addresses_table.delete(*addresses_table.get_children())
                         for index, row in selected_df.iterrows():
-                            print(row)
                             if type(row['Aliases']) != float:
                                 for alias in row['Aliases'].split('; '):
                                     alias_type, alias_name = alias.split(': ')
                                     aliases_table.insert('', 'end', values=(alias_type, alias_name))
                             if not isinstance(row['Addresses'], float):
                                 for address in row['Addresses'].split('; '):
-                                    parts = address.split(', ')
-                                    if len(parts) == 1:
-                                        parts = ['', '', '', '', parts[-1].strip()]
-                                    if len(parts) == 2:
-                                        parts = ['', '', '', parts[-2], parts[-1]]
-                                    if len(parts) == 3:
-                                        parts = ['', '', parts[-3], parts[-2], parts[-1]]
-                                    if len(parts) == 4:
-                                        parts = ['', parts[-4], parts[-3], parts[-2], parts[-1]]
-                                    addresses_table.insert('', 'end', values=tuple(parts))
+                                    addresses_table.insert('', 'end', values=(address,))
+
 
         country_dropdown.bind("<<ComboboxSelected>>", display_selected_country_data)
         main_table.bind("<ButtonRelease-1>", display_selected_row)
@@ -242,7 +228,7 @@ def create_gui():
     update_label.pack()
 
     # Create and place a "Display Data" button
-    print(data_exists_var.get())
+    # print(data_exists_var.get())
     if data_exists_var.get():
         update_label.config(text="Data exists. Do you want to update it or display it?")
         # Create and place an "Update Data" button
