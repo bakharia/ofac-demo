@@ -189,7 +189,7 @@ def scrape_data():
         country_field = driver.find_element(by=By.ID, value="ctl00_MainContent_ddlCountry")
         # Select(country_field).select_by_value(value="Entity")
 
-        countries = [option.text for option in Select(country_field).options if option.text != 'All'][67:77]
+        countries = [option.text for option in Select(country_field).options if option.text != 'All']
 
         all_data = []
         driver.quit()
